@@ -1,4 +1,4 @@
-import { express } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -26,3 +26,13 @@ app.use("/client", clientRoutes);
 app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
+
+/*Mongoose Setup */
+
+const PORT = process.env.PORT || 9000;
+mongoose
+  .connect(process.env.MONGO_ULR)
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+  })
+  .catch((erro) => console.log(`${erro} did not connect`));
